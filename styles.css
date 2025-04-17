@@ -283,26 +283,29 @@ header {
     }
   }
 /* ===== HERO SECTION WITH TECH PARTICLES ===== */
-/* ===== HERO SECTION ===== */
+/* ===== HERO SECTION - VERSÃO FINAL CORRIGIDA ===== */
 .hero {
     position: relative;
     height: 100vh;
+    min-height: -webkit-fill-available; /* Corrige iOS */
+    min-height: 600px; /* Fallback para desktop */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 8%;
     overflow: hidden;
     background-color: #0E0B0B;
+    box-sizing: border-box;
 }
 
-/* Container das partículas - CORRIGIDO */
+/* Container das partículas */
 #particles-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Acima do background mas abaixo do conteúdo */
+    z-index: 1;
 }
 
 /* Dark overlay */
@@ -314,27 +317,13 @@ header {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 2; /* Acima das partículas mas abaixo do conteúdo */
+    z-index: 2;
 }
 
-/* Wave effect at bottom */
-/* ===== ONDULAÇÃO DA CAPA - VERSÃO CORRIGIDA ===== */
-.hero {
-    position: relative;
-    height: 100vh;
-    min-height: -webkit-fill-available; /* Corrige iOS */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 8%;
-    overflow: hidden;
-    background-color: #0E0B0B;
-    box-sizing: border-box;
-}
-
+/* Wave effect - SOLUÇÃO DEFINITIVA */
 .hero-wave {
     position: absolute;
-    bottom: 0;
+    bottom: -1px; /* Ajuste pixel-perfect */
     left: 0;
     width: 100%;
     height: 100px;
@@ -342,37 +331,14 @@ header {
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 4;
-    /* Solução definitiva para alinhamento: */
-    margin-bottom: 0;
-    transform: rotate(180deg) translateY(1px); /* Ajuste fino de 1px */
-    -webkit-transform: rotate(180deg) translateY(1px);
-}
-
-/* Ajustes para mobile */
-@media (max-width: 768px) {
-    .hero {
-        min-height: 100vh; /* Garante que ocupe toda a tela */
-        height: auto;
-        padding-bottom: 100px; /* Espaço para a onda */
-    }
-    
-    .hero-wave {
-        height: 80px;
-        background-size: 100% 80px; /* Garante que a onda mantenha proporção */
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-wave {
-        height: 60px;
-        background-size: 100% 60px;
-    }
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg) translateZ(0); /* Aceleração de hardware */
 }
 
 /* Content container */
 .hero-content {
     max-width: 600px;
-    z-index: 3; /* Acima do overlay e das partículas */
+    z-index: 3;
     text-align: center;
 }
 
@@ -430,11 +396,18 @@ header {
     color: var(--light-text);
 }
 
-/* Responsiveness for mobile */
+/* MOBILE - CORREÇÃO DEFINITIVA */
 @media (max-width: 768px) {
     .hero {
-        text-align: center;
-        justify-content: center;
+        height: 100vh;
+        min-height: -webkit-fill-available;
+        padding-bottom: 0 !important; /* Remove qualquer espaçamento */
+    }
+    
+    .hero-wave {
+        height: 80px;
+        bottom: -1px !important; /* Posicionamento absoluto */
+        background-size: 100% 80px;
     }
     
     .hero-content {
@@ -453,9 +426,38 @@ header {
 }
 
 @media (max-width: 480px) {
+    .hero-wave {
+        height: 60px;
+        background-size: 100% 60px;
+    }
+    
     .hero-content h1 {
         font-size: 2rem;
     }
+}
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow: hidden;
+}
+
+.hero-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 4;
+    transform: rotate(180deg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Garante que o conteúdo fique acima da onda */
+.hero-content {
+    position: relative;
+    z-index: 5;
 }
 
 /* ===== SERVICES SECTION ===== */
