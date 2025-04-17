@@ -287,6 +287,7 @@ header {
 .hero {
     position: relative;
     height: 100vh;
+    min-height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -295,14 +296,14 @@ header {
     background-color: #0E0B0B;
 }
 
-/* Container das partículas - CORRIGIDO */
+/* Container das partículas */
 #particles-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Acima do background mas abaixo do conteúdo */
+    z-index: 1;
 }
 
 /* Dark overlay */
@@ -314,26 +315,13 @@ header {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 2; /* Acima das partículas mas abaixo do conteúdo */
+    z-index: 2;
 }
 
-/* Wave effect at bottom */
-/* ===== ONDULAÇÃO DA CAPA - VERSÃO CORRIGIDA ===== */
-.hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px; /* Altura mínima para desktop */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 8%;
-    overflow: hidden;
-    background-color: #0E0B0B;
-}
-
+/* Wave effect at bottom - CORRECTED */
 .hero-wave {
     position: absolute;
-    bottom: 0;
+    bottom: -1px; /* Garante que fique colada no final */
     left: 0;
     width: 100%;
     height: 100px;
@@ -342,35 +330,12 @@ header {
     background-repeat: no-repeat;
     z-index: 4;
     transform: rotate(180deg);
-    /* Garante que a onda sempre fique colada no final da seção */
-    margin-bottom: -1px;
-}
-
-/* Ajustes para mobile */
-@media (max-width: 768px) {
-    .hero {
-        min-height: 100vh; /* Garante que ocupe toda a tela */
-        height: auto;
-        padding-bottom: 100px; /* Espaço para a onda */
-    }
-    
-    .hero-wave {
-        height: 80px;
-        background-size: 100% 80px; /* Garante que a onda mantenha proporção */
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-wave {
-        height: 60px;
-        background-size: 100% 60px;
-    }
 }
 
 /* Content container */
 .hero-content {
     max-width: 600px;
-    z-index: 3; /* Acima do overlay e das partículas */
+    z-index: 3;
     text-align: center;
 }
 
@@ -428,20 +393,28 @@ header {
     color: var(--light-text);
 }
 
-/* Responsiveness for mobile */
+/* Responsiveness - CORRECTED WAVE POSITIONING */
 @media (max-width: 768px) {
     .hero {
-        text-align: center;
-        justify-content: center;
+        min-height: 100vh;
+        height: auto;
+        padding-bottom: 0; /* Removed padding */
     }
     
-    .hero-content {
-        max-width: 100%;
-        padding: 0 5%;
+    .hero-wave {
+        height: 80px;
+        background-size: 100% 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-wave {
+        height: 60px;
+        background-size: 100% 60px;
     }
     
     .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     
     .hero-buttons {
@@ -449,13 +422,6 @@ header {
         align-items: center;
     }
 }
-
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-}
-
 /* ===== SERVICES SECTION ===== */
 .services {
     padding: 120px 8% 180px; /* Aumentei o padding-bottom para a transição */
