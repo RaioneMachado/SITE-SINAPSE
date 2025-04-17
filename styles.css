@@ -287,7 +287,6 @@ header {
 .hero {
     position: relative;
     height: 100vh;
-    min-height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -296,14 +295,14 @@ header {
     background-color: #0E0B0B;
 }
 
-/* Container das partículas */
+/* Container das partículas - CORRIGIDO */
 #particles-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 1; /* Acima do background mas abaixo do conteúdo */
 }
 
 /* Dark overlay */
@@ -315,13 +314,27 @@ header {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 2;
+    z-index: 2; /* Acima das partículas mas abaixo do conteúdo */
 }
 
-/* Wave effect at bottom - CORRECTED */
+/* Wave effect at bottom */
+/* ===== ONDULAÇÃO DA CAPA - VERSÃO CORRIGIDA ===== */
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: -webkit-fill-available; /* Corrige iOS */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8%;
+    overflow: hidden;
+    background-color: #0E0B0B;
+    box-sizing: border-box;
+}
+
 .hero-wave {
     position: absolute;
-    bottom: -1px; /* Garante que fique colada no final */
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 100px;
@@ -329,13 +342,37 @@ header {
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 4;
-    transform: rotate(180deg);
+    /* Solução definitiva para alinhamento: */
+    margin-bottom: 0;
+    transform: rotate(180deg) translateY(1px); /* Ajuste fino de 1px */
+    -webkit-transform: rotate(180deg) translateY(1px);
+}
+
+/* Ajustes para mobile */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 100vh; /* Garante que ocupe toda a tela */
+        height: auto;
+        padding-bottom: 100px; /* Espaço para a onda */
+    }
+    
+    .hero-wave {
+        height: 80px;
+        background-size: 100% 80px; /* Garante que a onda mantenha proporção */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-wave {
+        height: 60px;
+        background-size: 100% 60px;
+    }
 }
 
 /* Content container */
 .hero-content {
     max-width: 600px;
-    z-index: 3;
+    z-index: 3; /* Acima do overlay e das partículas */
     text-align: center;
 }
 
@@ -393,28 +430,20 @@ header {
     color: var(--light-text);
 }
 
-/* Responsiveness - CORRECTED WAVE POSITIONING */
+/* Responsiveness for mobile */
 @media (max-width: 768px) {
     .hero {
-        min-height: 100vh;
-        height: auto;
-        padding-bottom: 0; /* Removed padding */
+        text-align: center;
+        justify-content: center;
     }
     
-    .hero-wave {
-        height: 80px;
-        background-size: 100% 80px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-wave {
-        height: 60px;
-        background-size: 100% 60px;
+    .hero-content {
+        max-width: 100%;
+        padding: 0 5%;
     }
     
     .hero-content h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .hero-buttons {
@@ -422,6 +451,13 @@ header {
         align-items: center;
     }
 }
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+}
+
 /* ===== SERVICES SECTION ===== */
 .services {
     padding: 120px 8% 180px; /* Aumentei o padding-bottom para a transição */
@@ -2313,185 +2349,185 @@ footer {
 
 /* Estrutura Principal */
 .space-faq {
-    padding: 120px 8%;
-    background: #0D0D0D;
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
+  padding: 120px 8%;
+  background: #0D0D0D;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cosmic-container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Títulos */
+.galaxy-title {
+  font-size: 3.2rem;
+  text-align: center;
+  margin-bottom: 15px;
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(236, 137, 36, 0.5);
+}
+
+.neon-accent {
+  color: #EC8924;
+}
+
+.subtitle {
+  text-align: center;
+  color: #B8B8B8;
+  font-size: 1.2rem;
+  margin-bottom: 50px;
+}
+
+/* Acordeão */
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cosmic-accordion {
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(236, 137, 36, 0.3);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+}
+
+.cosmic-accordion:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(236, 137, 36, 0.3);
+}
+
+.accordion-btn {
+  width: 100%;
+  padding: 22px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+}
+
+.star-icon {
+  color: #EC8924;
+  font-size: 1.4rem;
+  transition: transform 0.3s;
+}
+
+.question {
+  flex: 1;
+}
+
+.arrow-icon {
+  font-size: 1.5rem;
+  transition: transform 0.4s ease;
+  color: #EC8924;
+}
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.panel-content {
+  padding: 0 30px 25px;
+  color: #B8B8B8;
+  line-height: 1.7;
+}
+
+/* Efeitos Espaciais */
+.star-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.1); }
+}
+
+.rocket {
+  position: absolute;
+  font-size: 2.5rem;
+  z-index: 1;
+  animation: flyRocket 25s linear infinite;
+  transform: translateX(-150px) rotate(-45deg);
+  opacity: 0.7;
+}
+
+@keyframes flyRocket {
+  0% { transform: translateX(-150px) rotate(-45deg); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateX(calc(100vw + 150px)) rotate(-45deg); opacity: 0; }
+}
+
+.comet {
+  position: absolute;
+  width: 300px;
+  height: 2px;
+  background: linear-gradient(90deg, #EC8924, transparent);
+  top: 20%;
+  right: -100px;
+  transform: rotate(-20deg);
+  filter: blur(1px);
+  animation: cometFly 40s linear infinite;
+}
+
+@keyframes cometFly {
+  0% { right: -100px; opacity: 0; }
+  10% { opacity: 1; }
+  100% { right: 100%; opacity: 0; }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .space-faq {
+    padding: 80px 5%;
   }
   
-  .cosmic-container {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-  
-  /* Títulos */
   .galaxy-title {
-    font-size: 3.2rem;
-    text-align: center;
-    margin-bottom: 15px;
-    color: white;
-    letter-spacing: 2px;
-    text-shadow: 0 0 15px rgba(236, 137, 36, 0.5);
-  }
-  
-  .neon-accent {
-    color: #EC8924;
-  }
-  
-  .subtitle {
-    text-align: center;
-    color: #B8B8B8;
-    font-size: 1.2rem;
-    margin-bottom: 50px;
-  }
-  
-  /* Acordeão */
-  .accordion-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .cosmic-accordion {
-    border-radius: 12px;
-    overflow: hidden;
-    background: rgba(20, 20, 20, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(236, 137, 36, 0.3);
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s ease;
-  }
-  
-  .cosmic-accordion:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(236, 137, 36, 0.3);
+    font-size: 2.4rem;
   }
   
   .accordion-btn {
-    width: 100%;
-    padding: 22px 30px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .star-icon {
-    color: #EC8924;
-    font-size: 1.4rem;
-    transition: transform 0.3s;
-  }
-  
-  .question {
-    flex: 1;
-  }
-  
-  .arrow-icon {
-    font-size: 1.5rem;
-    transition: transform 0.4s ease;
-    color: #EC8924;
-  }
-  
-  .panel {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    padding: 18px 20px;
+    font-size: 1rem;
   }
   
   .panel-content {
-    padding: 0 30px 25px;
-    color: #B8B8B8;
-    line-height: 1.7;
-  }
-  
-  /* Efeitos Espaciais */
-  .star-field {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-  
-  .star {
-    position: absolute;
-    background-color: white;
-    border-radius: 50%;
-    animation: twinkle 2s infinite alternate;
-  }
-  
-  @keyframes twinkle {
-    0% { opacity: 0.3; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1.1); }
+    padding: 0 20px 20px;
   }
   
   .rocket {
-    position: absolute;
-    font-size: 2.5rem;
-    z-index: 1;
-    animation: flyRocket 25s linear infinite;
-    transform: translateX(-150px) rotate(-45deg);
-    opacity: 0.7;
+    font-size: 1.8rem;
   }
-  
-  @keyframes flyRocket {
-    0% { transform: translateX(-150px) rotate(-45deg); opacity: 0; }
-    10% { opacity: 0.7; }
-    90% { opacity: 0.7; }
-    100% { transform: translateX(calc(100vw + 150px)) rotate(-45deg); opacity: 0; }
-  }
-  
-  .comet {
-    position: absolute;
-    width: 300px;
-    height: 2px;
-    background: linear-gradient(90deg, #EC8924, transparent);
-    top: 20%;
-    right: -100px;
-    transform: rotate(-20deg);
-    filter: blur(1px);
-    animation: cometFly 40s linear infinite;
-  }
-  
-  @keyframes cometFly {
-    0% { right: -100px; opacity: 0; }
-    10% { opacity: 1; }
-    100% { right: 100%; opacity: 0; }
-  }
-  
-  /* Responsivo */
-  @media (max-width: 768px) {
-    .space-faq {
-      padding: 80px 5%;
-    }
-    
-    .galaxy-title {
-      font-size: 2.4rem;
-    }
-    
-    .accordion-btn {
-      padding: 18px 20px;
-      font-size: 1rem;
-    }
-    
-    .panel-content {
-      padding: 0 20px 20px;
-    }
-    
-    .rocket {
-      font-size: 1.8rem;
-    }
-  }
+}
 
 
 
