@@ -2664,3 +2664,17 @@ footer {
   .new-services .new-section-title h2 span:nth-child(2) {
     color: #EC8924;
   }
+  /* Impede a rolagem horizontal no celular */
+html, body {
+    overflow-x: hidden;  /* Impede a rolagem horizontal */
+    width: 100%; /* Garante que o conteúdo não ultrapasse a largura da tela */
+}
+
+/* Ajustes de responsividade */
+@media (max-width: 768px) {
+    /* Adicional: garantir que o conteúdo se ajuste corretamente em telas menores */
+    body {
+        overflow-x: hidden; /* Impede rolagem lateral */
+    }
+}
+
