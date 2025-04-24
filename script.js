@@ -254,3 +254,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.querySelectorAll('.process-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const x = e.clientX - card.getBoundingClientRect().left;
+        const y = e.clientY - card.getBoundingClientRect().top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    });
+});
